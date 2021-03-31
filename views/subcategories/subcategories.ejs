@@ -1,0 +1,37 @@
+<%- include ../header.ejs %>
+
+    <div class="body-wrapper">
+        <div class="container-fluid">
+            <div class="container">
+                <h1>
+                    <%= title %>
+                </h1>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="container">
+                <div class="row row-cols-1 row-cols-md-3">
+                    <% results.forEach((test) => { %>
+                        <a href="/<%= test.id%>/:<%= test.id%>">
+                            <div class="col mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <%= test.name %>
+                                        </h5>
+                                        <%= test.short_description %>
+                                            <div>
+                                                <%= test.price %>
+                                                    <%= test.currency %>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <%});%>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include ../footer.ejs %>

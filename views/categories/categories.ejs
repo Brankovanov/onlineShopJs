@@ -1,0 +1,53 @@
+<%- include ../header.ejs %>
+    <div class="body-wrapper">
+        <div class="container-fluid">
+            <div class='container px-0 '>
+                <nav aria-label="breadcrumb ">
+                    <ol class="breadcrumb bg-white px-0">
+                        <% results.forEach((test) => { 
+                            if(test.parent_category_id=="root" ){ %>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                <a href="/">Home</a>
+                            </li>
+                            <%}else if(test.parent_category_id=="womens" || test.parent_category_id=="mens"){%>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    <a href="/">Home</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    <a href="/<%= test.id%>/:<%= test.id%>"></a>
+                                    <%= test.name%>
+                                        </a>
+                                </li>
+                                <%}
+                            });%>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class='container'>
+                <% results.forEach((test) => { %>
+                    <% test.categories.forEach((category) => { %>
+                        <a href="/<%= category.id%>/:<%= category.id%>">
+                            <div class="card mb-3">
+                                <%if(category.image!=null) { %>
+                                    <img class="card-img-top" src="/images/<%= category.image%>" alt="Card image cap">
+                                    <% } %>
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <%= category.page_title%>
+                                            </h5>
+                                            <p class="card-text">
+
+                                                <%= category.page_description %>
+                                            </p>
+                                        </div>
+                            </div>
+                        </a>
+                        <%});%>
+                            <%});%>
+            </div>
+        </div>
+    </div>
+
+    <%- include ../footer.ejs %>
