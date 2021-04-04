@@ -1,6 +1,6 @@
 <%- include header.ejs %>
 
-    <div class="body-wrapper">
+    <div class="index-wrapper">
         <div class="container-fluid">
             <div class='container px-0 '>
                 <nav aria-label="breadcrumb ">
@@ -14,19 +14,17 @@
         <div class="container-fluid">
             <div class='container'>
                 <% results.forEach((test) => { %>
-                    <a href="<%= test.id%>/:<%= test.id%>">
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <%= test.page_title%>
-                                </h5>
-                                <p class="card-text">
-
-                                    <%= test.page_description %>
-                                </p>
-                            </div>
+                    <div class="card mb-3 border-dark rounded-lg">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <%= test.page_title%>
+                            </h5>
+                            <p class="card-text">
+                                <%= test.page_description %>
+                            </p>
+                            <a href="<%= test.id%>/:<%= test.id%>" class="btn btn-primary">View more</a>
                         </div>
-                    </a>
+                    </div>
                     <%});%>
             </div>
         </div>

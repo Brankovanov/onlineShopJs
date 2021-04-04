@@ -1,6 +1,8 @@
+/* eslint-disable default-case */
 const { MongoClient } = require('mongodb');
 
 let resultArr = [];
+let headerArr = [];
 
 module.exports = function routeIndex(req, res) {
     const id = req.params;
@@ -9,6 +11,12 @@ module.exports = function routeIndex(req, res) {
     MongoClient.connect('mongodb://localhost:27017/onlineShop', (err, client) => {
         if (err) throw err;
         const db = client.db('onlineShop');
+        const h = db.collection('categories').find({}, { categories: 0 })
+        h.forEach((doc, err) => {
+            headerArr.push(doc);
+        });
+
+
 
         switch (id.id) {
             case ':mens':
@@ -17,10 +25,12 @@ module.exports = function routeIndex(req, res) {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('categories/categories', { title: 'Categories', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-                res.render('categories/categories', { title: 'Categories', results: resultArr });
-                resultArr = [];
+
                 break;
 
             case ':womens':
@@ -29,10 +39,11 @@ module.exports = function routeIndex(req, res) {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('categories/categories', { title: 'Categories', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-                res.render('categories/categories', { title: 'Categories', results: resultArr });
-                resultArr = [];
                 break;
 
             case ':womens-clothing':
@@ -45,10 +56,11 @@ module.exports = function routeIndex(req, res) {
                         });
                     },
                     () => {
+                        res.render('categories/categories', { title: 'Categories', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-                res.render('categories/categories', { title: 'Categories', results: resultArr });
-                resultArr = [];
                 break;
 
             case ':womens-jewelry':
@@ -61,10 +73,11 @@ module.exports = function routeIndex(req, res) {
                         });
                     },
                     () => {
+                        res.render('categories/categories', { title: 'Categories', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-                res.render('categories/categories', { title: 'Categories', results: resultArr });
-                resultArr = [];
                 break;
 
             case ':womens-accessories':
@@ -77,10 +90,12 @@ module.exports = function routeIndex(req, res) {
                         });
                     },
                     () => {
+                        res.render('categories/categories', { title: 'Categories', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-                res.render('categories/categories', { title: 'Categories', results: resultArr });
-                resultArr = [];
+
                 break;
 
             case ':mens-clothing':
@@ -88,16 +103,16 @@ module.exports = function routeIndex(req, res) {
                 c.forEach((doc, err) => {
                         doc.categories.forEach((element) => {
                             if (element.id === 'mens-clothing') {
-                                console.log(element.id);
                                 resultArr.push(element);
                             }
                         });
                     },
                     () => {
+                        res.render('categories/categories', { title: 'Categories', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-                res.render('categories/categories', { title: 'Categories', results: resultArr });
-                resultArr = [];
                 break;
 
             case ':mens-accessories':
@@ -110,310 +125,281 @@ module.exports = function routeIndex(req, res) {
                         });
                     },
                     () => {
+                        res.render('categories/categories', { title: 'Categories', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-                res.render('categories/categories', { title: 'Categories', results: resultArr });
-                resultArr = [];
                 break;
 
             case ':mens-clothing-suits':
-                c = db.collection('products').find({ primary_category_id: "mens-clothing-suits" });
-
+                c = db.collection('products').find({ primary_category_id: 'mens-clothing-suits' });
                 c.forEach((doc, err) => {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('categories/categories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('categories/categories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':mens-clothing-jackets':
-                c = db.collection('products').find({ primary_category_id: "mens-clothing-jackets" });
+                c = db.collection('products').find({ primary_category_id: 'mens-clothing-jackets' });
 
                 c.forEach((doc, err) => {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('categories/categories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('categories/categories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':mens-clothing-dress-shirts':
-                c = db.collection('products').find({ primary_category_id: "mens-clothing-dress-shirts" });
-
+                c = db.collection('products').find({ primary_category_id: 'mens-clothing-dress-shirts' });
                 c.forEach((doc, err) => {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('categories/categories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('categories/categories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':mens-clothing-shorts':
-                c = db.collection('products').find({ primary_category_id: "mens-clothing-shorts" });
-
+                c = db.collection('products').find({ primary_category_id: 'mens-clothing-shorts' });
                 c.forEach((doc, err) => {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('categories/categories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('categories/categories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':mens-clothing-pants':
-                c = db.collection('products').find({ primary_category_id: "mens-clothing-pants" });
-
+                c = db.collection('products').find({ primary_category_id: 'mens-clothing-pants' });
                 c.forEach((doc, err) => {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('categories/categories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('categories/categories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':mens-accessories-luggage':
-                c = db.collection('products').find({ primary_category_id: "mens-accessories-luggage" });
-
+                c = db.collection('products').find({ primary_category_id: 'mens-accessories-luggage' });
                 c.forEach((doc, err) => {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('categories/categories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('categories/categories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':mens-accessories-gloves':
-                c = db.collection('products').find({ primary_category_id: "mens-accessories-gloves" });
-
+                c = db.collection('products').find({ primary_category_id: 'mens-accessories-gloves' });
                 c.forEach((doc, err) => {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('categories/categories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('categories/categories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':mens-accessories-ties':
-                c = db.collection('products').find({ primary_category_id: "mens-accessories-ties" });
-
+                c = db.collection('products').find({ primary_category_id: 'mens-accessories-ties' });
                 c.forEach((doc, err) => {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('categories/categories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('categories/categories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':womens-outfits':
-                c = db.collection('products').find({ primary_category_id: "womens-outfits" });
-
+                c = db.collection('products').find({ primary_category_id: 'womens-outfits' });
                 c.forEach((doc, err) => {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('categories/categories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('categories/categories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':womens-clothing-tops':
-                c = db.collection('products').find({ primary_category_id: "womens-clothing-tops" });
-
+                c = db.collection('products').find({ primary_category_id: 'womens-clothing-tops' });
                 c.forEach((doc, err) => {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('categories/categories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('categories/categories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':womens-clothing-dresses':
-                c = db.collection('products').find({ primary_category_id: "womens-clothing-dresses" });
-
+                c = db.collection('products').find({ primary_category_id: 'womens-clothing-dresses' });
                 c.forEach((doc, err) => {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('categories/categories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('categories/categories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':womens-clothing-bottoms':
-                c = db.collection('products').find({ primary_category_id: "womens-clothing-bottoms" });
-
+                c = db.collection('products').find({ primary_category_id: 'womens-clothing-bottoms' });
                 c.forEach((doc, err) => {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('categories/categories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('categories/categories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':womens-clothing-dresses':
-                c = db.collection('products').find({ primary_category_id: "womens-clothing-dresses" });
+                c = db.collection('products').find({ primary_category_id: 'womens-clothing-dresses' });
 
                 c.forEach((doc, err) => {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('categories/categories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('categories/categories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':womens-clothing-jackets':
-                c = db.collection('products').find({ primary_category_id: "womens-clothing-jackets" });
+                c = db.collection('products').find({ primary_category_id: 'womens-clothing-jackets' });
 
                 c.forEach((doc, err) => {
                         resultArr.push(doc);
+                        no
                     },
                     () => {
+                        res.render('categories/categories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('categories/categories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':womens-clothing-feeling-red':
-                c = db.collection('products').find({ primary_category_id: "womens-clothing-feeling-red" });
+                c = db.collection('products').find({ primary_category_id: 'womens-clothing-feeling-red' });
 
                 c.forEach((doc, err) => {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('categories/categories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('categories/categories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':womens-jewelry-earrings':
-                c = db.collection('products').find({ primary_category_id: "womens-jewelry-earrings" });
+                c = db.collection('products').find({ primary_category_id: 'womens-jewelry-earrings' });
 
                 c.forEach((doc, err) => {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('categories/categories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('categories/categories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':womens-jewlery-bracelets':
-                c = db.collection('products').find({ primary_category_id: "womens-jewlery-bracelets" });
+                c = db.collection('products').find({ primary_category_id: 'womens-jewlery-bracelets' });
 
                 c.forEach((doc, err) => {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('categories/categories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('categories/categories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':womens-jewelry-necklaces':
-                c = db.collection('products').find({ primary_category_id: "womens-jewelry-necklaces" });
+                c = db.collection('products').find({ primary_category_id: 'womens-jewelry-necklaces' });
 
                 c.forEach((doc, err) => {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('categories/categories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('categories/categories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':womens-accessories-shoes':
-                c = db.collection('products').find({ primary_category_id: "womens-accessories-shoes" });
+                c = db.collection('products').find({ primary_category_id: 'womens-accessories-shoes' });
 
                 c.forEach((doc, err) => {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('categories/categories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('categories/categories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':womens-accessories-scarves':
-                c = db.collection('products').find({ primary_category_id: "womens-accessories-scarves" });
+                c = db.collection('products').find({ primary_category_id: 'womens-accessories-scarves' });
 
                 c.forEach((doc, err) => {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('categories/categories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('categories/categories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
         }
     });

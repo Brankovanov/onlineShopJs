@@ -26,7 +26,8 @@ const routes = {
     index: require('./routes/index'),
     categories: require('./routes/categories'),
     subcategories: require('./routes/subcategories'),
-    products: require('./routes/products')
+    products: require('./routes/products'),
+    productsFilter: require('./routes/productsFilter')
 };
 
 const app = express();
@@ -37,7 +38,7 @@ app.set('views', `${__dirname}/views`);
 app.set('view engine', 'ejs');
 app.use(express.favicon());
 app.use(express.logger('dev'));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(express.cookieParser('61d333a8-6325-4506-96e7-a180035cc26f'));
@@ -87,7 +88,9 @@ app.get('/womens-accessories-scarves/:id', routes.subcategories);
 app.get('/womens-accessories-shoes/:id', routes.subcategories);
 app.get('/categories', routes.categories);
 app.get('/subcategories', routes.subcategories);
-app.get('/products', routes.products);
+app.get('/products/:id', routes.products);
+
+app.post('/products/:id', routes.productsFilter);
 
 // Run server
 http.createServer(app).listen(app.get('port'), () => {

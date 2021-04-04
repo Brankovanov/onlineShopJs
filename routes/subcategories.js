@@ -1,13 +1,6 @@
-module.exports = function routeIndex(req, res) {
-    res.render('subcategories/subcategories', {
-        // Template data
-        title: 'Product Subcategories',
-    });
-};
-
 const { MongoClient } = require('mongodb');
-
 let resultArr = [];
+let headerArr = [];
 
 module.exports = function routeIndex(req, res) {
     const id = req.params;
@@ -16,6 +9,10 @@ module.exports = function routeIndex(req, res) {
     MongoClient.connect('mongodb://localhost:27017/onlineShop', (err, client) => {
         if (err) throw err;
         const db = client.db('onlineShop');
+        const h = db.collection('categories').find({}, { categories: 0 })
+        h.forEach((doc, err) => {
+            headerArr.push(doc);
+        });
 
         switch (id.id) {
             case ':mens-clothing-suits':
@@ -25,13 +22,11 @@ module.exports = function routeIndex(req, res) {
                         resultArr.push(doc);
                     },
                     () => {
-                        console.log(resultArr);
+                        res.render('subcategories/subcategories', { title: 'Suits', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('subcategories/subcategories', { title: 'Suits', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':mens-clothing-jackets':
@@ -41,12 +36,11 @@ module.exports = function routeIndex(req, res) {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('subcategories/subcategories', { title: 'Jackets & Coats', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('subcategories/subcategories', { title: 'Jackets & Coats', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':mens-clothing-dress-shirts':
@@ -56,12 +50,11 @@ module.exports = function routeIndex(req, res) {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('subcategories/subcategories', { title: 'Dress Shirts', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('subcategories/subcategories', { title: 'Dress Shirts', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':mens-clothing-shorts':
@@ -71,12 +64,11 @@ module.exports = function routeIndex(req, res) {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('subcategories/subcategories', { title: 'Shorts', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('subcategories/subcategories', { title: 'Shorts', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':mens-clothing-pants':
@@ -86,12 +78,11 @@ module.exports = function routeIndex(req, res) {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('subcategories/subcategories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('subcategories/subcategories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':mens-accessories-luggage':
@@ -101,12 +92,11 @@ module.exports = function routeIndex(req, res) {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('subcategories/subcategories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('subcategories/subcategories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':mens-accessories-gloves':
@@ -116,12 +106,11 @@ module.exports = function routeIndex(req, res) {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('subcategories/subcategories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('subcategories/subcategories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':mens-accessories-ties':
@@ -131,12 +120,11 @@ module.exports = function routeIndex(req, res) {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('subcategories/subcategories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('subcategories/subcategories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':womens-outfits':
@@ -146,12 +134,11 @@ module.exports = function routeIndex(req, res) {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('subcategories/subcategories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('subcategories/subcategories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':womens-clothing-tops':
@@ -161,12 +148,11 @@ module.exports = function routeIndex(req, res) {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('subcategories/subcategories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('subcategories/subcategories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':womens-clothing-dresses':
@@ -176,12 +162,11 @@ module.exports = function routeIndex(req, res) {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('subcategories/subcategories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('subcategories/subcategories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':womens-clothing-bottoms':
@@ -191,12 +176,11 @@ module.exports = function routeIndex(req, res) {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('subcategories/subcategories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('subcategories/subcategories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':womens-clothing-dresses':
@@ -206,12 +190,11 @@ module.exports = function routeIndex(req, res) {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('subcategories/subcategories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('subcategories/subcategories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':womens-clothing-jackets':
@@ -221,12 +204,11 @@ module.exports = function routeIndex(req, res) {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('subcategories/subcategories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('subcategories/subcategories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':womens-clothing-feeling-red':
@@ -236,12 +218,11 @@ module.exports = function routeIndex(req, res) {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('subcategories/subcategories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('subcategories/subcategories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':womens-jewelry-earrings':
@@ -251,12 +232,11 @@ module.exports = function routeIndex(req, res) {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('subcategories/subcategories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('subcategories/subcategories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':womens-jewlery-bracelets':
@@ -266,12 +246,11 @@ module.exports = function routeIndex(req, res) {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('subcategories/subcategories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('subcategories/subcategories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':womens-jewelry-necklaces':
@@ -281,12 +260,11 @@ module.exports = function routeIndex(req, res) {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('subcategories/subcategories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('subcategories/subcategories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':womens-accessories-shoes':
@@ -296,12 +274,11 @@ module.exports = function routeIndex(req, res) {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('subcategories/subcategories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('subcategories/subcategories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
 
             case ':womens-accessories-scarves':
@@ -311,12 +288,11 @@ module.exports = function routeIndex(req, res) {
                         resultArr.push(doc);
                     },
                     () => {
+                        res.render('subcategories/subcategories', { title: 'Products', results: resultArr, header: headerArr });
                         client.close();
+                        resultArr = [];
+                        headerArr = [];
                     });
-
-                res.render('subcategories/subcategories', { title: 'Products', results: resultArr });
-
-                resultArr = [];
                 break;
         }
     });

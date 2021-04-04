@@ -1,6 +1,6 @@
 const { MongoClient } = require('mongodb');
 
-let resultArr = [];
+const resultArr = [];
 
 MongoClient.connect('mongodb://localhost:27017/onlineShop', (err, client) => {
     if (err) throw err;
@@ -14,7 +14,7 @@ MongoClient.connect('mongodb://localhost:27017/onlineShop', (err, client) => {
         });
 });
 
+
 module.exports = function routeIndex(req, res) {
-    res.render('index', { title: 'Online shop', results: resultArr });
-    resultArr = [];
+    res.render('index', { title: 'Online shop', results: resultArr, header: resultArr });
 };
